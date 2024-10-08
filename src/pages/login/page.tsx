@@ -1,14 +1,17 @@
-import { Button, TextField } from '@mui/material'
-import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { FormEvent, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { login } from '../slice/authSlice'
-import { compareSync } from 'bcryptjs'
+import { LoginAPI } from '../../api'
+import { Button, TextField } from '@mui/material'
+import React from 'react'
+import { UserLogin } from '../../types'
+
+//import { compareSync } from 'bcryptjs'
 const Login = () => {
-  const token = useSelector(state => state?.user?.user?.token) //subscribe to store token
+  // const token = useSelector(state => state?.user?.user?.token) //subscribe to store token
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [user, setUser] = useState({
+  const [user, setUser] = useState<UserLogin>({
     email: '',
     password: '',
   })
@@ -40,7 +43,7 @@ const Login = () => {
       })
     }
   }
-  const handleSubmit = e => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     setEmailError({
@@ -51,43 +54,35 @@ const Login = () => {
       status: false,
       message: '',
     })
-    const storedUser = JSON.parse(localStorage.getItem('user')) //fetching signup data from local storage
-    if (storedUser) {
-      if (!user.email) {
-        //if email is not present
-        setEmailError({
-          status: true,
-          message: 'Email is required',
-        })
-        return
-      } else if (!user.password) {
-        //if password is not present
-        setPasswordError({
-          status: true,
-          message: 'Password is required',
-        })
-        return
-      } else if (
-        storedUser.email !== user.email || //check whether the local storage email is equal to current user email
-        compareSync(user.password, storedUser.password) === false //used bcrypt to compare password
-      ) {
-        setError('Invalid Credentials')
-        return
-      } else {
-        setError('')
-        dispatch(login({ token, user }))
-        navigate('/todo')
-      }
-    } else {
-      setError('Please register to Login')
+    if (!user.email) {
+      //if email is not present
+      setEmailError({
+        status: true,
+        message: 'Email is required',
+      })
       return
+    } else if (!user.password) {
+      //if password is not present
+      setPasswordError({
+        status: true,
+        message: 'Password is required',
+      })
+      return
+    } else {
+      setError('')
+      const res = await LoginAPI(user)
+      console.log(res)
+      if (res.token) {
+        // dispatch(login({ token, user }))
+        navigate('/users')
+      }
     }
   }
 
   return (
     <div className='border border-slate-900'>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}
         className='flex justify-center h-[100vh] flex-col items-center gap-5  p-5'
       >
         <p className='text-[20px] font-bold'>Login</p>

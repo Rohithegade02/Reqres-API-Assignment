@@ -1,12 +1,13 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Users from './pages/users/page'
 import Login from './pages/login/page'
+import React from 'react'
 
 function App() {
   // const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
 
   return (
-    <div className='max-w-[100vw]'>
+    <div className='max-w-[100vw] p-10'>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Login />} />

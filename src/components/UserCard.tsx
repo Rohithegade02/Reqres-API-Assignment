@@ -12,7 +12,6 @@ interface UserCardProps {
 const UserCard: React.FC<UserCardProps> = ({ data, userId }) => {
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false)
   const [showEditModal, setShowEditModal] = useState<boolean>(false)
-
   const handleEditModal = useCallback(() => {
     setShowEditModal(!showEditModal)
   }, [])
@@ -27,7 +26,7 @@ const UserCard: React.FC<UserCardProps> = ({ data, userId }) => {
         <img
           src={data.avatar}
           alt={`${data.first_name} ${data.last_name}`}
-          className='w-60 h-60 z-10  rounded-3xl'
+          className='w-60 h-60  rounded-3xl'
         />
       </div>
       <div className='flex flex-col bg-black justify-between'>

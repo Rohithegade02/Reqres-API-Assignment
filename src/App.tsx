@@ -7,7 +7,7 @@ function App() {
   // const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
 
   return (
-    <div className='max-w-[100vw] p-10'>
+    <div className='max-w-[100vw] bg-[#191E22] p-10'>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Login />} />

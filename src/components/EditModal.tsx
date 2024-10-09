@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { useForm } from 'react-hook-form'
 import { User } from '../types'
 import { updateUserById } from '../api'
 import EditIcon from '@mui/icons-material/Edit'
+import toast, { Toaster } from 'react-hot-toast'
+import { useDispatch } from 'react-redux'
+import { updateUser } from '../slice/dataSlice'
 
 interface EditModalProps {
   data: User
@@ -11,7 +14,7 @@ interface EditModalProps {
 }
 
 function EditModal({ data, userId, setShowEditModal }: EditModalProps) {
-  console.log(userId)
+  const dispatch = useDispatch()
   const {
     register,
     handleSubmit,
@@ -27,14 +30,19 @@ function EditModal({ data, userId, setShowEditModal }: EditModalProps) {
   const submitForm = async (formData: User) => {
     try {
       await updateUserById(userId, formData)
-      setShowEditModal(false)
+      dispatch(updateUser({ ...data, ...formData }))
+      toast.success('Updated User Successfully')
+      setTimeout(() => {
+        setShowEditModal(false)
+      }, 2000)
     } catch (error) {
       console.error('Error updating user:', error)
+      toast.error(error)
     }
   }
 
   return (
-    <div className='flex flex-col items-center p-5 m-5 shadow-lg bg-white relative gap-5 w-[400px] rounded-lg h-[50%]'>
+    <div className='flex flex-col items-center p-2 shadow-lg bg-white relative gap-5 w-[400px] rounded-lg h-[50%]'>
       <form
         onSubmit={handleSubmit(submitForm)}
         className='h-[50%] border-2 border-[#f1f1f1] pb-2 flex flex-col items-center z-10 rounded-lg w-96'
@@ -126,7 +134,7 @@ function EditModal({ data, userId, setShowEditModal }: EditModalProps) {
             </button>
             <button
               type='submit'
-              className='bg-[#1f1f21] text-white p-2 font-semibold rounded-md w-full'
+              className='bg-[#1f1f21] text-white p-2 font-semibold flex items-center justify-center gap-1 text-[14px] rounded-md w-full'
             >
               <EditIcon style={{ height: '16px', width: '16px' }} /> Save
               Changes
@@ -134,8 +142,9 @@ function EditModal({ data, userId, setShowEditModal }: EditModalProps) {
           </div>
         </div>
       </form>
+      <Toaster />
     </div>
   )
 }
 
-export default EditModal
+export default memo(EditModal)

@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { memo } from 'react'
 import ClearIcon from '@mui/icons-material/Clear'
 import { DeleteRounded } from '@mui/icons-material'
 import { User } from '../types'
 import { deleteUserById } from '../api'
+import toast, { Toaster } from 'react-hot-toast'
+import { useDispatch } from 'react-redux'
+import { deleteUser } from '../slice/dataSlice'
 
 function DeleteModal({
   showDeleteModal,
@@ -13,9 +16,14 @@ function DeleteModal({
   setShowDeleteModal: (arg0: boolean) => void
   userId: User['id']
 }) {
+  const dispatch = useDispatch()
   const handleDeleteUser = async () => {
     await deleteUserById(userId)
-    setShowDeleteModal(false)
+    dispatch(deleteUser(userId))
+    toast.success('Deleted User Successfully')
+    setTimeout(() => {
+      setShowDeleteModal(false)
+    }, 2000)
   }
   return (
     <div className='flex flex-col items-center bg-white p-5 gap-5 w-96 rounded-lg relative'>
@@ -33,7 +41,10 @@ function DeleteModal({
       >
         <ClearIcon className='w-10 h-10  text-gray-400' />
       </div>
-      <div className='flex justify-between w-80 items-center'>
+      <div
+        className='flex justify-between w-80 items-center'
+        onClick={() => setShowDeleteModal(false)}
+      >
         <button className='text-white font-medium rounded-3xl  px-10 py-2   bg-[#627d98] '>
           Cancel
         </button>
@@ -54,8 +65,9 @@ function DeleteModal({
           />
         </button>
       </div>
+      <Toaster />
     </div>
   )
 }
 
-export default DeleteModal
+export default memo(DeleteModal)

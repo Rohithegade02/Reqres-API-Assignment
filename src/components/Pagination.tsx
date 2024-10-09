@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { UserData } from '../types'
 import {
   ArrowCircleLeftSharp,
@@ -51,4 +51,4 @@ const Pagination: React.FC<PaginationProps> = ({
   )
 }
 
-export default Pagination
+export default memo(Pagination)

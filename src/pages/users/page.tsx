@@ -26,12 +26,14 @@ function Users() {
     setPage(newPage)
   }
   return (
-    <div className='flex flex-row justify-center items-center h-screen flex-wrap gap-10'>
-      {memoizedUsers.map(item => (
-        <div key={item.id}>
-          <UserCard data={item} key={item.id} />
-        </div>
-      ))}
+    <div>
+      <div className='flex flex-row justify-center  items-center h-screen flex-wrap gap-10'>
+        {memoizedUsers.map(item => (
+          <div key={item.id} className='w-[25%]'>
+            <UserCard data={item} key={item.id} userId={item.id} />
+          </div>
+        ))}
+      </div>
       <div>
         <Pagination
           page={page}

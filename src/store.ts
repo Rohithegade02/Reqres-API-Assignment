@@ -1,13 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import dataReducer from './slice/dataSlice'
 import { ThunkAction, Action } from '@reduxjs/toolkit'
-import userReducer from './slice/UserSlice'
 import authReducer from './slice/authSlice'
 
 const store = configureStore({
   reducer: {
     data: dataReducer,
-    user: userReducer,
     auth: authReducer,
   },
   devTools: false,

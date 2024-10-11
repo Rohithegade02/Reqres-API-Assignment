@@ -14,13 +14,13 @@ const SearchBar = forwardRef<
         type='text'
         value={inputData}
         ref={ref}
-        onChange={handleChange} // This handles typing input
+        onChange={handleChange}
         placeholder='Search By Name'
-        className='w-60 h-12 px-2 rounded-2xl border-none bg-none focus:outline-none selection:border-none'
+        className='w-80 h-12 px-2 rounded-2xl border-gray-400 border bg-none focus:outline-none selection:border-none'
       />
       <button
         className='absolute top-0 px-5 left-56 rounded-r-2xl bg-[#018777] h-12 text-white'
-        onClick={handleSearchClick} // Optional: If user wants to click search
+        onClick={handleSearchClick}
       >
         Search
       </button>

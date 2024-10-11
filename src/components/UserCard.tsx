@@ -21,15 +21,15 @@ const UserCard: React.FC<UserCardProps> = ({ data, userId }) => {
   }, [])
 
   return (
-    <div className='flex p-3 rounded-3xl shadow-lg bg-black  gap-4'>
+    <div className='flex p-3 rounded-3xl shadow-lg w-[400px] h-[280px] bg-black  gap-4'>
       <div className='flex bg-black items-center'>
         <img
           src={data.avatar}
           alt={`${data.first_name} ${data.last_name}`}
-          className='w-60 h-60  rounded-3xl'
+          className='w-full h-full  rounded-3xl'
         />
       </div>
-      <div className='flex flex-col bg-black justify-between'>
+      <div className='flex flex-col bg-black w-[50%] justify-between'>
         <div
           className='flex justify-end bg-black items-end cursor-pointer'
           onClick={handleDeleteModal}
@@ -69,10 +69,10 @@ const UserCard: React.FC<UserCardProps> = ({ data, userId }) => {
           </div>
         )}
         <div className='flex flex-col bg-black self-center'>
-          <p className='text-2xl text-white font-bold bg-black'>
+          <p className='text-3xl text-gray-300 font-bold bg-black'>
             {data.first_name}
           </p>
-          <p className='text-2xl text-white font-bold bg-black'>
+          <p className='text-3xl text-gray-400 font-bold bg-black'>
             {data.last_name}
           </p>
         </div>

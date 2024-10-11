@@ -1,17 +1,16 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { UserLogin } from '../types'
 
-// Define initial state
 const initialState = {
   isAuthenticated: false,
   token: null,
   user: null,
-  status: 'idle', // To track the state of async operations like login
+  status: 'idle',
   error: null,
 }
+
 const baseURL = 'https://reqres.in'
 
-// Async thunk to handle login API call
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async (data: UserLogin, { rejectWithValue }) => {
@@ -29,7 +28,8 @@ export const loginUser = createAsyncThunk(
       }
 
       const result = await response.json()
-      return result // This will contain the token and user data
+      localStorage.setItem('token', result.token)
+      return result
     } catch (error: any) {
       return rejectWithValue(error.message)
     }
@@ -40,36 +40,38 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    // Logout functionality
     logout: state => {
       state.isAuthenticated = false
       state.token = null
       state.user = null
+      localStorage.removeItem('token')
+    },
+    initializeAuth: state => {
+      const token = localStorage.getItem('token')
+      if (token) {
+        state.isAuthenticated = true
+        state.token = token
+      }
     },
   },
   extraReducers: builder => {
-    // Handle pending state
     builder.addCase(loginUser.pending, state => {
       state.status = 'loading'
       state.error = null
     })
 
-    // Handle fulfilled state (successful login)
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      console.log(action.payload)
       state.isAuthenticated = true
       state.token = action.payload.token
       state.user = action.payload.user
       state.status = 'succeeded'
     })
 
-    // Handle rejected state (failed login)
-    builder.addCase(loginUser.rejected, (state, action) => {
+    builder.addCase(loginUser.rejected, state => {
       state.status = 'failed'
-      //   state.error = action.payload || 'Failed to login'
     })
   },
 })
 
-export const { logout } = authSlice.actions
+export const { logout, initializeAuth } = authSlice.actions
 export default authSlice.reducer

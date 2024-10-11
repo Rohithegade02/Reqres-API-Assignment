@@ -1,9 +1,7 @@
 import React, { memo } from 'react'
 import { UserData } from '../types'
-import {
-  ArrowCircleLeftSharp,
-  ArrowCircleRightSharp,
-} from '@mui/icons-material'
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
 interface PaginationProps {
   page: UserData['page']
@@ -29,23 +27,23 @@ const Pagination: React.FC<PaginationProps> = ({
   }
 
   return (
-    <div className='flex justify-center items-center gap-4 mt-4'>
+    <div className='flex justify-center pb-4 items-center gap-4 '>
       <button
-        className='px-4 py-2 bg-gray-300 rounded disabled:opacity-50'
+        className='pl-4 pr-3 rounded-md py-2 border border-gray-600  flex items-center disabled:opacity-50'
         onClick={handlePrev}
         disabled={page === 1}
       >
-        <ArrowCircleLeftSharp />
+        <ArrowBackIosIcon style={{ color: '#6b7280' }} />
       </button>
       <span className='text-lg'>
         {page} of {totalPages}
       </span>
       <button
-        className='px-4 py-2 bg-gray-300 rounded disabled:opacity-50'
+        className='pl-3 pr-4 rounded-md py-2 border border-gray-600  flex items-center disabled:opacity-50'
         onClick={handleNext}
         disabled={page === totalPages}
       >
-        <ArrowCircleRightSharp />
+        <ArrowForwardIosIcon style={{ color: '#6b7280' }} />
       </button>
     </div>
   )

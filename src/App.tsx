@@ -1,22 +1,25 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Users from './pages/users/page'
 import Login from './pages/login/page'
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { RootState } from '@reduxjs/toolkit/query'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import PrivateRoute from './components/PrivateRoute'
+import { initializeAuth } from './slice/authSlice'
+import { RootState } from './store'
 
 function App() {
+  const dispatch = useDispatch()
   const isAuthenticated = useSelector(
     (state: RootState) => state.auth.isAuthenticated,
   )
-  console.log(isAuthenticated)
+  useEffect(() => {
+    dispatch(initializeAuth())
+  }, [dispatch])
   return (
-    <div className='max-w-[100vw] bg-[#191E22] p-10'>
+    <div className='p-10'>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Login />} />
-          // {/* Private route only can be accessed when authenticated */}
           <Route
             path='/users'
             element={
@@ -25,7 +28,6 @@ function App() {
               </PrivateRoute>
             }
           />
-          {/* Redirect to login if not authenticated */}
           <Route
             path='/users'
             element={!isAuthenticated ? <Navigate to='/' replace /> : <Users />}

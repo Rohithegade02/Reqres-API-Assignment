@@ -46,7 +46,6 @@ const dataSlice = createSlice({
       .addCase(
         fetchData.fulfilled,
         (state, action: PayloadAction<UserData>) => {
-          console.log(action.payload.data)
           state.status = 'succeeded'
           state.data = action.payload.data
           state.totalPages = action.payload.total_pages

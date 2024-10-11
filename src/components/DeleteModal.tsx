@@ -18,12 +18,18 @@ function DeleteModal({
 }) {
   const dispatch = useDispatch()
   const handleDeleteUser = async () => {
-    await deleteUserById(userId)
-    dispatch(deleteUser(userId))
-    toast.success('Deleted User Successfully')
-    setTimeout(() => {
-      setShowDeleteModal(false)
-    }, 2000)
+    try {
+      await deleteUserById(userId)
+      dispatch(deleteUser(userId))
+      toast.success('Deleted User Successfully')
+      setTimeout(() => {
+        setShowDeleteModal(false)
+      }, 2000)
+    } catch (err) {
+      toast.error('Error:', err)
+
+      console.log('Error in deleting user:', err)
+    }
   }
   return (
     <div className='flex flex-col items-center bg-white p-5 gap-5 w-96 rounded-lg relative'>
@@ -64,8 +70,8 @@ function DeleteModal({
             }}
           />
         </button>
+        <Toaster />
       </div>
-      <Toaster />
     </div>
   )
 }

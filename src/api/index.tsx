@@ -16,7 +16,6 @@ export const LoginAPI = async (data: UserLogin) => {
     }
 
     const result = await response.json()
-    console.log(result)
     return result
   } catch (error) {
     console.error('Error during login', error)
@@ -57,7 +56,6 @@ export const updateUserById = async (userId: User['id'], formData: User) => {
       throw new Error(`HTTP error! status: ${response.status}`)
     }
     const result: UserData = await response.json()
-    console.log(result)
     return result
   } catch (error) {
     console.error('Error during login', error)
@@ -72,7 +70,6 @@ export const deleteUserById = async (userId: User['id']) => {
         'Content-Type': 'application/json',
       },
     })
-    console.log(response)
     return response
   } catch (error) {
     console.error('Error during login', error)

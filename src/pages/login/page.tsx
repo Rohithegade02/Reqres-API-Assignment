@@ -6,10 +6,12 @@ import { loginSchema } from '../../schema'
 import { LoginAPI } from '../../api'
 import { useDispatch } from 'react-redux'
 import { loginUser } from '../../slice/authSlice'
+import toast, { Toaster } from 'react-hot-toast'
+import { AppDispatch } from '../../store'
 
 const Login = () => {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const dispatch: AppDispatch = useDispatch()
   const {
     register,
     handleSubmit,
@@ -19,12 +21,13 @@ const Login = () => {
   })
 
   const onSubmit = async data => {
-    console.log(data)
     const res = await LoginAPI(data)
     dispatch(loginUser(data))
-    console.log(res)
-    if (res.token) {
-      navigate('/users')
+    if (res.token === 'QpwL5tke4Pnpja7X4') {
+      toast.success('Login User Successfully')
+      setTimeout(() => {
+        navigate('/users')
+      }, 2000)
     }
   }
 
@@ -74,6 +77,7 @@ const Login = () => {
           </div>
         </form>
       </div>
+      <Toaster />
     </div>
   )
 }

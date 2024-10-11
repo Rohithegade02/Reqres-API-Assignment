@@ -5,31 +5,29 @@ import UserCard from '../../components/UserCard'
 import Pagination from '../../components/Pagination'
 import SearchBar from '../../components/SearchBar'
 import { fetchData } from '../../slice/dataSlice'
-import { RootState } from '../../store'
 import Filter from '../../components/Filter'
+import { logout } from '../../slice/authSlice'
+import LoadingCard from '../../components/LoadingCard'
+import { RootState, AppDispatch } from '../../store'
 
 function Users() {
-  const dispatch = useDispatch()
-
   const allUsers = useSelector((state: RootState) => state.data.data)
   const status = useSelector((state: RootState) => state.data.status)
   const totalPages = useSelector((state: RootState) => state.data.totalPages)
 
   const [filteredUsers, setFilteredUsers] = useState<User[]>([])
   const [page, setPage] = useState<UserData['page']>(1)
-  const [showFilterOption, setShowFilterOption] = useState<boolean>(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const [inputData, setInputData] = useState<string>('')
-
   const debounceTimeoutRef = useRef<number | null>(null)
+  const dispatch: AppDispatch = useDispatch()
 
   const getData = useCallback(
     async (page: number) => {
-      dispatch(fetchData(page))
+      await dispatch(fetchData(page))
     },
     [dispatch],
   )
-
   useEffect(() => {
     getData(page)
   }, [page, getData])
@@ -57,7 +55,7 @@ function Users() {
               user.last_name.toLowerCase().includes(searchValue)),
         )
         setFilteredUsers(filtered)
-      }, 500)
+      }, 600)
     },
     [allUsers],
   )
@@ -81,48 +79,64 @@ function Users() {
     let filtered = allUsers
       .slice()
       .sort((a, b) => a.first_name.localeCompare(b.first_name))
-    setFilteredUsers([...filtered]) // Ensure new array reference
+    setFilteredUsers([...filtered])
   }, [allUsers])
 
   const filterUserByNameDesc = useCallback(() => {
     const filtered = allUsers
       .slice()
       .sort((a, b) => b.first_name.localeCompare(a.first_name))
-    setFilteredUsers([...filtered]) // Ensure new array reference
+    setFilteredUsers([...filtered])
   }, [allUsers])
+  const handleLogout = () => {
+    dispatch(logout())
+  }
 
   return (
-    <div>
-      <div className='flex flex-col h-screen flex-wrap gap-10'>
-        <div className='flex w-full justify-between'>
-          <div></div>
-          <SearchBar
-            inputData={inputData}
-            ref={inputRef}
-            handleChange={handleChange}
-            handleSearchClick={handleSearchClick}
+    <div className='flex flex-col h-screen  gap-6'>
+      <div className='flex w-[100%] flex-col lg:flex-row items-center gap-5 lg:gap-0  justify-center lg:justify-between'>
+        <div></div>
+        <SearchBar
+          inputData={inputData}
+          ref={inputRef}
+          handleChange={handleChange}
+          handleSearchClick={handleSearchClick}
+        />
+        <div className='flex justify-center items-center gap-12'>
+          <Filter
+            filterByName={filterUserByName}
+            filterByNameDesc={filterUserByNameDesc}
           />
-          <div>
-            <Filter
-              showFilterOption={showFilterOption}
-              setShowFilterOption={setShowFilterOption}
-              filterByName={filterUserByName}
-              filterByNameDesc={filterUserByNameDesc} // Pass the descending sort function
-            />
-          </div>
-        </div>
-
-        {status === 'loading' && <div>Loading...</div>}
-
-        <div className='flex flex-wrap justify-center items-center gap-10'>
-          {memoizedUsers.map(item => (
-            <div key={item.id} className='w-[25%]'>
-              <UserCard data={item} userId={item.id} />
-            </div>
-          ))}
+          <button
+            className='text-white text-[16px] bg-red-500 hover:bg-red-700 py-3 px-6 rounded-2xl'
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
         </div>
       </div>
 
+      {status === 'loading' && (
+        <div className='flex flex-wrap gap-5 items-center justify-center h-screen'>
+          {memoizedUsers.map(item => (
+            <LoadingCard key={item.id} />
+          ))}{' '}
+        </div>
+      )}
+
+      <div className='flex flex-wrap justify-center items-center gap-5'>
+        {memoizedUsers.length === 0 ? (
+          <div className='flex justify-center items-center  text-white'>
+            No User Found ...
+          </div>
+        ) : (
+          memoizedUsers.map(item => (
+            <div key={item.id}>
+              <UserCard data={item} userId={item.id} />
+            </div>
+          ))
+        )}
+      </div>
       <div>
         <Pagination
           page={page}

@@ -73,25 +73,19 @@ proper form validation, error handling, and token persistence.
 2. Navigate to the project directory:
 
    ```
-
    cd project-name
-
    ```
 
 3. Install dependencies:
 
    ```
-
    npm install
-
    ```
 
 4. Run the project:
 
    ```
-
    npm start
-
    ```
 
 5. Open your browser and go to `http://localhost:5173` to view the app.

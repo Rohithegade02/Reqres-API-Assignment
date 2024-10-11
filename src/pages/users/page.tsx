@@ -126,7 +126,7 @@ function Users() {
 
       <div className='flex flex-wrap justify-center items-center gap-5'>
         {memoizedUsers.length === 0 ? (
-          <div className='flex justify-center items-center  text-white'>
+          <div className='flex justify-center items-center h-[70vh] text-black'>
             No User Found ...
           </div>
         ) : (

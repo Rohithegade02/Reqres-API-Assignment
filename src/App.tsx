@@ -1,21 +1,24 @@
+import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import Users from './pages/users/page'
 import Login from './pages/login/page'
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import PrivateRoute from './components/PrivateRoute'
 import { initializeAuth } from './slice/authSlice'
 import { RootState } from './store'
 
 function App() {
   const dispatch = useDispatch()
+  const [loading, setLoading] = useState(true)
   const isAuthenticated = useSelector(
     (state: RootState) => state.auth.isAuthenticated,
   )
-  console.log(isAuthenticated)
+
   useEffect(() => {
     dispatch(initializeAuth())
+    setLoading(false)
   }, [dispatch])
+
   return (
     <div className='p-10'>
       <BrowserRouter>
@@ -24,14 +27,10 @@ function App() {
           <Route
             path='/users'
             element={
-              <PrivateRoute isAuthenticated={isAuthenticated}>
+              <PrivateRoute isAuthenticated={isAuthenticated} loading={loading}>
                 <Users />
               </PrivateRoute>
             }
-          />
-          <Route
-            path='/users'
-            element={!isAuthenticated ? <Navigate to='/' replace /> : <Users />}
           />
         </Routes>
       </BrowserRouter>

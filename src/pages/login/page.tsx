@@ -5,9 +5,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { loginSchema } from '../../schema'
 import { LoginAPI } from '../../api'
 import { useDispatch } from 'react-redux'
-import { loginUser } from '../../slice/authSlice'
 import toast, { Toaster } from 'react-hot-toast'
 import { AppDispatch } from '../../store'
+import { login } from '../../slice/authSlice'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -22,7 +22,7 @@ const Login = () => {
 
   const onSubmit = async data => {
     const res = await LoginAPI(data)
-    dispatch(loginUser(data))
+    dispatch(login(data))
     if (res.token === 'QpwL5tke4Pnpja7X4') {
       toast.success('Login User Successfully')
       setTimeout(() => {

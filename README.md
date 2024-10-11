@@ -8,7 +8,7 @@ proper form validation, error handling, and token persistence.
 ## Features ✨
 
 - 🔄 **React** for the frontend framework.
-- 📊 **State Management** via Redux.
+- 📊 **State Management** via Redux Toolkit.
 - 🌐 **API Requests** using fetch API.
 - 🎨 **Responsive Design** for both desktop and mobile views.
 - 🛡️ **Secure Login** with form validation and token-based authentication.
@@ -24,8 +24,10 @@ proper form validation, error handling, and token persistence.
 - **React**
 - **Redux**
 - **Axios**
-- **Tailwind CSS** (or any CSS framework you used)
+- **Tailwind CSS**
 - **React Router**
+-**react-hook-form**
+-**react-hot-toast**
 
 ## How it Works ⚙️
 
@@ -36,8 +38,10 @@ proper form validation, error handling, and token persistence.
     they can view, search, and filter users.
 3.  **Edit User**: Users can select and edit details of any user from the list.
     All updates are validated and saved via API.
-4.  **Logout**: The user can log out anytime, which clears the token and
+4.  **Delete User**: Users can delete any user from the list, with a confirmation modal to prevent accidental deletion. The user is removed from the list via API.
+5.  **Logout**: The user can log out anytime, which clears the token and
     redirects to the login screen.
+
 
 ## API Error Handling 🚨
 
@@ -48,18 +52,20 @@ proper form validation, error handling, and token persistence.
 
 ## Bonus Points 🎉
 
-- **Client-Side Search** and **Filtering** implemented for better user
-  experience.
+- **Client-Side Search** and **Filtering** implemented for better user experience.
 - **React Router** for smooth navigation between pages.
-- The app is hosted on **Vercel** (or your chosen platform):
-  [Link to live project](reqres-api-assignment.vercel.app)
+- **High Performance Optimization**: Used **memo** higher-order function for every component to improve performance and prevent unnecessary re-renders.
+- **Form Validation**: Integrated **react-hook-form** and **Yup** for schema-based validation and type validation.
+- The app is hosted on **Vercel**:
+  [Link to live project](https://reqres-api-assignment.vercel.app)
+
 
 `## How to Run the Project 🏃‍♂️
 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-repo-link.git `
+   git clone https://github.com/your-repo-link.git 
 
    ```
 
@@ -67,7 +73,7 @@ proper form validation, error handling, and token persistence.
 
    ```
 
-   `cd user-management-system`
+   cd project-name
 
    ```
 
@@ -75,7 +81,7 @@ proper form validation, error handling, and token persistence.
 
    ```
 
-   `npm install`
+   npm install
 
    ```
 
@@ -83,7 +89,7 @@ proper form validation, error handling, and token persistence.
 
    ```
 
-   `npm start`
+   npm start
 
    ```
 

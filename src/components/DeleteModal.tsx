@@ -18,27 +18,21 @@ function DeleteModal({
 
   const handleDeleteUser = async () => {
     try {
-      // Delete the user by ID via API
       await deleteUserById(userId)
-      dispatch(deleteUser(userId)) // Dispatch the deletion to Redux store
+      dispatch(deleteUser(userId)) 
 
-      // Trigger success toast
       toast.success('Deleted User Successfully')
 
-      // Close modal after a short delay
       setTimeout(() => {
         setShowDeleteModal(false)
       }, 2000)
     } catch (err) {
-      // Trigger error toast
       toast.error('Error deleting user')
-      console.log('Error in deleting user:', err)
     }
   }
 
   return (
     <>
-      {/* Modal Content */}
       <div className='flex flex-col items-center bg-white p-5 gap-5 w-96 rounded-lg relative'>
         <div>
           <p className=' font-semibold text-[#3a4e63]'>Delete User?</p>

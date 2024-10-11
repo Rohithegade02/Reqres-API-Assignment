@@ -1,10 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { User, UserData } from '../types'
 
-// Define the base URL for the API
 const baseURL = 'https://reqres.in'
 
-// Create an async thunk for fetching data
 export const fetchData = createAsyncThunk<UserData, number>(
   'data/fetchData',
   async (page: number) => {
@@ -16,22 +14,20 @@ export const fetchData = createAsyncThunk<UserData, number>(
   },
 )
 
-// Create the slice with initial state, including type annotations
 const dataSlice = createSlice({
   name: 'data',
   initialState: {
-    data: [] as User[], // Data type is an array of User
-    status: 'idle', // idle, loading, succeeded, or failed
+    data: [] as User[], 
+    status: 'idle', 
     totalPages: 0,
     page: 0,
-    error: null as string | null, // Error message if fetching fails
+    error: null as string | null, 
   },
   reducers: {
     deleteUser: (state, action: PayloadAction<number>) => {
       state.data = state.data.filter(user => user.id !== action.payload)
     },
     updateUser: (state, action: PayloadAction<User>) => {
-      // Find the index of the user in the state and update
       const index = state.data.findIndex(user => user.id === action.payload.id)
       if (index !== -1) {
         state.data[index] = action.payload

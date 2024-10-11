@@ -1,6 +1,6 @@
-# User Management System 🚀
+# EmployeeWise Management System 🚀
 
-A user-friendly and responsive User Management System built with **React**,
+A user-friendly and responsive EmployeeWise Management System built with **React**,
 **Redux**, and **fetch API** for efficient API handling. This project includes
 secure login, user list management, and editing functionality, all wrapped with
 proper form validation, error handling, and token persistence.
@@ -13,7 +13,7 @@ proper form validation, error handling, and token persistence.
 - 🎨 **Responsive Design** for both desktop and mobile views.
 - 🛡️ **Secure Login** with form validation and token-based authentication.
 - 🔍 **Client-Side Search & Filtering** on the users' list.
-- 📝 **User Edit Functionality** with form validation.
+- 📝 **User Edit Functionality** on the users' list with debounce functionality for improved performance..
 - 🚥 **Routing** with React Router for seamless navigation.
 - 📂 **Token Persistence** using Local Storage.
 - ❌ **Error Handling** to ensure smooth user experience during API
@@ -50,7 +50,7 @@ proper form validation, error handling, and token persistence.
 - Form validation ensures that no invalid data is submitted and error are
   handled properly and shown using toast message
 
-## Bonus Points 🎉
+## Bonus Functionality 🎉
 
 - **Client-Side Search** and **Filtering** implemented for better user experience.
 - **React Router** for smooth navigation between pages.
@@ -67,7 +67,6 @@ proper form validation, error handling, and token persistence.
 
    ```bash
    git clone https://github.com/your-repo-link.git 
-
    ```
 
 2. Navigate to the project directory:

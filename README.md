@@ -1,4 +1,4 @@
-# EmployeeWise Management System 🚀
+# Reqres-API-Assignment
 
 A user-friendly and responsive EmployeeWise Management System built with **React**,
 **Redux**, and **fetch API** for efficient API handling. This project includes
@@ -10,7 +10,7 @@ proper form validation, error handling, and token persistence.
 - 🔄 **React** for the frontend framework.
 - 📊 **State Management** via Redux Toolkit.
 - 🌐 **API Requests** using fetch API.
-- 🎨 **Responsive Design** for both desktop and mobile views.
+- 🎨 **Responsive Design** for both desktop and mobile views use **Tailwind CSS**.
 - 🛡️ **Secure Login** with form validation and token-based authentication.
 - 🔍 **Client-Side Search & Filtering** on the users' list.
 - 📝 **User Edit Functionality** on the users' list with debounce functionality for improved performance..
@@ -26,8 +26,8 @@ proper form validation, error handling, and token persistence.
 - **Axios**
 - **Tailwind CSS**
 - **React Router**
--**react-hook-form**
--**react-hot-toast**
+- **react-hook-form**
+- **react-hot-toast**
 
 ## How it Works ⚙️
 
@@ -65,7 +65,7 @@ proper form validation, error handling, and token persistence.
 
 1. Clone the repository:
 
-   ```bash
+   ```
    git clone https://github.com/your-repo-link.git 
    ```
 
@@ -84,7 +84,7 @@ proper form validation, error handling, and token persistence.
 4. Run the project:
 
    ```
-   npm start
+   npm run dev
    ```
 
 5. Open your browser and go to `http://localhost:5173` to view the app.

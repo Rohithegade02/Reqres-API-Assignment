@@ -22,20 +22,20 @@ const UserCard: React.FC<UserCardProps> = ({ data, userId }) => {
 
   return (
     <div className='flex p-3 rounded-3xl shadow-lg w-[400px] h-[280px] bg-black  gap-4'>
-      <div className='flex bg-black items-center'>
+      <div className='flex items-center'>
         <img
           src={data.avatar}
           alt={`${data.first_name} ${data.last_name}`}
           className='w-full h-full  rounded-3xl'
         />
       </div>
-      <div className='flex flex-col bg-black w-[50%] justify-between'>
+      <div className='flex flex-col  w-[50%] justify-between'>
         <div
-          className='flex justify-end bg-black items-end cursor-pointer'
+          className='flex justify-end  items-end cursor-pointer '
           onClick={handleDeleteModal}
         >
-          <div className='h-10 w-10 shadow-lg bg-[#fc534d] rounded-full flex items-center justify-center '>
-            <ClearIcon className='w-8 h-8 bg-[#fc534d] text-white' />
+          <div className='h-10 w-10 shadow-lg bg-[#fc534d] rounded-full flex   items-center justify-center '>
+            <ClearIcon className='w-8 h-8 bg-[#fc534d]  text-white' />
           </div>
         </div>
         {showDeleteModal && (
@@ -46,7 +46,6 @@ const UserCard: React.FC<UserCardProps> = ({ data, userId }) => {
             ></div>
             <div className='relative shadow-lg z-20'>
               <DeleteModal
-                showDeleteModal={showDeleteModal}
                 setShowDeleteModal={setShowDeleteModal}
                 userId={userId}
               />
@@ -76,9 +75,9 @@ const UserCard: React.FC<UserCardProps> = ({ data, userId }) => {
             {data.last_name}
           </p>
         </div>
-        <div className='flex justify-end bg-black items-end cursor-pointer'>
+        <div className='flex justify-end  items-end cursor-pointer'>
           <div
-            className='h-10 w-10 shadow-lg bg-[#018777] rounded-full flex items-center justify-center '
+            className='h-10 w-10 shadow-lg bg-[#018777]  rounded-full flex items-center justify-center '
             onClick={handleEditModal}
           >
             <EditIcon className='w-8 h-8 bg-[#018777] text-white' />

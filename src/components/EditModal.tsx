@@ -29,6 +29,15 @@ function EditModal({ data, userId, setShowEditModal }: EditModalProps) {
 
   const submitForm = async (formData: User) => {
     try {
+      if (
+        data.first_name === formData.first_name &&
+        data.last_name === formData.last_name &&
+        data.email === formData.email
+      ) {
+        toast.error('No value changed to update the User')
+        return
+      }
+
       await updateUserById(userId, formData)
       dispatch(updateUser({ ...data, ...formData }))
       toast.success('Updated User Successfully')
@@ -37,7 +46,7 @@ function EditModal({ data, userId, setShowEditModal }: EditModalProps) {
       }, 2000)
     } catch (error) {
       console.error('Error updating user:', error)
-      toast.error(error)
+      toast.error('Error updating user')
     }
   }
 

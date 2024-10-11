@@ -56,11 +56,12 @@ proper form validation, error handling, and token persistence.
 - **React Router** for smooth navigation between pages.
 - **High Performance Optimization**: Used **memo** higher-order function for every component to improve performance and prevent unnecessary re-renders.
 - **Form Validation**: Integrated **react-hook-form** and **Yup** for schema-based validation and type validation.
+- **Deboucing functionality**:  Implemented debounce to optimize the search feature for better performance.
 - The app is hosted on **Vercel**:
   [Link to live project](https://reqres-api-assignment.vercel.app)
 
 
-`## How to Run the Project 🏃‍♂️
+## How to Run the Project 🏃‍♂️
 
 1. Clone the repository:
 
